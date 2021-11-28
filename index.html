@@ -1,76 +1,50 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Cube</title>
-    <style>
-        body{
-            margin: 0;
-        }
-        canvas{width:100%;height:100%;}
-    </style>
+	<title>3d model</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.37.1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	
+	<link href="style.css" rel="stylesheet">
+	<!-- The following libraries and polyfills are recommended to maximize browser support -->
+    <!-- NOTE: you must adjust the paths as appropriate for your project -->
+    
+    <!--  REQUIRED: Web Components polyfill to support Edge and Firefox < 63 -->
+     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
+
+    <!--  OPTIONAL: Intersection Observer polyfill for better performance in Safari and IE11 -->
+	<!--     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
+
+    <!--  OPTIONAL: Resize Observer polyfill improves resize behavior in non-Chrome browsers -->
+	<!--     <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script> -->
+    
+    <!--  OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
+	<!--
+   <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+	-->
 </head>
+
 <body>
-    <script src="three.min.js"></script>
-    <script>
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.5,1000);
-        
+	<!-- 3D content for your site: -->
 
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        //cube
-        var geometry = new THREE.BoxGeometry(150, 150, 150);
-        var geometry2 = new THREE.TorusGeometry( 100, 40, 32, 100 );
-        var geometry3 = new THREE.CylinderGeometry( 50, 50, 150, 32 );
+    <model-viewer src="scene.gltf" alt="A 3D model of a car" shadow-intensity="1" camera-controls auto-rotate ar >
+    </model-viewer>
 
 
-        var material = new THREE.MeshPhongMaterial({color: 0xf27b50});
-        var material2 = new THREE.MeshPhongMaterial({color: 0xf25050});
-        var material3 = new THREE.MeshPhongMaterial({color: 0xf2a950});
+	<!-- 💁 Include both scripts below to support all browsers! -->
 
-        var light;
-        var cube = new THREE.Mesh(geometry, material);
-        var donut = new THREE.Mesh(geometry2, material2);
-        var sphere = new THREE.Mesh(geometry3, material3);
-        scene.add(cube);
-        scene.add(donut);
-        scene.add(sphere);
+	<!-- Loads <model-viewer> for modern browsers: -->
+	  <script type="module"
+		  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+	  </script>
 
-        function init(){
-            renderer.setClearColor(0x333333);
-            camera.position.z = 500;
-            cube.position.x = -300
-            donut.position.x = 0;
-            sphere.position.x = 300;
-
-
-            light = new THREE.PointLight(0xffffff, 1, 1500);
-            scene.add(light);
-            light.position.y = 200;
-            light.position.z = 400;
-            light.position.x = -200;
-        }
-
-
-        function animate(){
-            requestAnimationFrame(animate);
-            
-            cube.rotation.y += 0.01;
-            cube.rotation.x += 0.01;
-            donut.rotation.x += 0.01;
-            donut.rotation.y += 0.01;
-            sphere.rotation.x += 0.01;
-            sphere.rotation.y += 0.01;
-
-            renderer.render(scene, camera);
-        }
-        init();
-        animate();
-    </script> 
-
+	<!-- Loads <model-viewer> for old browsers like IE11: -->
+	<script nomodule
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+	</script>
 </body>
+
 </html>
